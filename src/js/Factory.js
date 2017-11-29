@@ -41,10 +41,27 @@ export default {
     ],
     index:0,    //方块索引号
     status:0,   //方块状态号
+    getDragCellColor(index){
+        switch (index){
+            case 0: return "#7e8ed5";break;
+            case 1: return "#ffc63e";break;
+            case 2: return "#ed954a";break;
+            case 3: return "#e76a82";break;
+            case 4: return "#dc6555";break;
+            case 5: return "#5cbee4";break;
+            case 6: return "#59cb86";break;
+            case 7: return "#98dc55";break;
+            case 8: return "#4dd5b0";break;
+            default : return "black";
+        }
+    },
     createBlock: function(){    //生成一个新方块
         this.index = Math.floor(Math.random() * this.maps.length);
         this.status = Math.floor(Math.random() * this.maps[this.index].length);
-        return this.getCurrentBlock();
+        return {
+            shape: this.getCurrentBlock(),
+            color: this.getDragCellColor(this.index)
+        };
     },
     getCurrentBlock: function(){
         return this.maps[this.index][this.status];

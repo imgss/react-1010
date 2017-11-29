@@ -6,7 +6,7 @@ class Block extends Component {
     return (
       <div className="block_container">
         {
-            Block.map((i,index) => (<div key={index} className="block_cell" style={{background: (i ? 'black': 'transparent')}}/>))
+            Block.shape.map((i,index) => (<div key={index} className="block_cell" style={{background: (i ? Block.color: 'transparent')}}/>))
         }
       </div>
     );
