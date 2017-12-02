@@ -5,12 +5,21 @@ import Blocks from './components/blocks_container'
 import './App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.handleDrag = this.handleDrag.bind(this)
+  }
+
+  handleDrag(index){
+    console.log(index)
+  }
+
   render() {
     return (
       <div className="App">
         <Grid/>
         <ColorGrid/>
-        <Blocks/>
+        <Blocks onDrag={this.handleDrag}/>
       </div>
     );
   }

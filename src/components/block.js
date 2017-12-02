@@ -8,6 +8,7 @@ class Block extends Component {//生成俄罗斯方块
   }
 
   handleMouseDown(e){
+    this.props.isDrag(this.state.shape)
     document.onmousemove = (e) => {
       //通知app在拖拽了
       this.setState({
