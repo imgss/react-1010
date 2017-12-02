@@ -20,7 +20,8 @@ class ColorGrid extends Component {//放方块的网格
   }
 
   handleMouseOver(i,j,e){
-    console.log(i,j)
+    if(this.props.isDragging)
+      console.log(i,j)
   }
 
   render() {

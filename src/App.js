@@ -7,18 +7,26 @@ import './App.css';
 class App extends Component {
   constructor(props){
     super(props)
+    this.state = {
+      isDragging: false,
+      dragBlock: []
+    }
     this.handleDrag = this.handleDrag.bind(this)
   }
 
-  handleDrag(index){
-    console.log(index)
+  handleDrag(block){
+    console.log(block)
+    this.setState({
+      isDragging: true,
+      dragBlock: block
+    })
   }
 
   render() {
     return (
       <div className="App">
         <Grid/>
-        <ColorGrid/>
+        <ColorGrid isDragging={this.state.isDragging}/>
         <Blocks onDrag={this.handleDrag}/>
       </div>
     );
