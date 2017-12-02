@@ -1,24 +1,36 @@
 import React, { Component } from 'react';
 import Factory from '../js/Factory'
-import { DragSource } from 'react-dnd';
 class Block extends Component {
   constructor(props){
     super(props)
     this.state = Object.assign({style: {}}, Factory.createBlock())
     this.handleMouseDown = this.handleMouseDown.bind(this)
+    this.handleMouseUp = this.handleMouseUp.bind(this)
   }
 
   handleMouseDown(e){
-    console.log(e.target, e.currentTarget)
-    let target = e.currentTarget
-    document.addEventListener('mousemove',(e) => {
-      this.setState({style: {position:'absolute',left:e.clientX,top:e.clientY}})
+    document.onmousemove = (e) => {
+      this.setState({
+        style: {
+          position: 'absolute',
+          transform: 'scale(2)',
+          left: e.clientX,
+          top: e.clientY
+        }
+      })
+    }
+  }
+
+  handleMouseUp(e){
+    document.onmousemove = null
+    this.setState({
+      style: { }
     })
   }
 
   render() {
     return (
-      <div className="block_container" onMouseDown={this.handleMouseDown} style={this.state.style}>
+      <div className="block_container" onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp} style={this.state.style}>
         {
             this.state.shape.map((i,index) => (
               <div 

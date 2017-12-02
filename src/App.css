@@ -16,6 +16,10 @@
   flex-wrap: wrap;
   height: 400px;
 }
+.color{
+  position: absolute;
+  
+}
 .container{
   height: 400px;
   width: 110px;
@@ -26,7 +30,9 @@
 }
 
 .block_container{
+  border: 1px solid #eee;
   height: 108px;
+  width: 110px;
 }
 
 .block_cell{
