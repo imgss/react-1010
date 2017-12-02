@@ -43,15 +43,15 @@ export default {
     status:0,   //方块状态号
     getDragCellColor(index){
         switch (index){
-            case 0: return "#7e8ed5";break;
-            case 1: return "#ffc63e";break;
-            case 2: return "#ed954a";break;
-            case 3: return "#e76a82";break;
-            case 4: return "#dc6555";break;
-            case 5: return "#5cbee4";break;
-            case 6: return "#59cb86";break;
-            case 7: return "#98dc55";break;
-            case 8: return "#4dd5b0";break;
+            case 0: return "#7e8ed5";
+            case 1: return "#ffc63e";
+            case 2: return "#ed954a";
+            case 3: return "#e76a82";
+            case 4: return "#dc6555";
+            case 5: return "#5cbee4";
+            case 6: return "#59cb86";
+            case 7: return "#98dc55";
+            case 8: return "#4dd5b0";
             default : return "black";
         }
     },
