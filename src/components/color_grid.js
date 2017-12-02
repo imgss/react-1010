@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ColorGrid extends Component {
+class ColorGrid extends Component {//放方块的网格
   constructor(props){
     super(props)
     let cells = []

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Block from './block'
-class Blocks extends Component {
+class Blocks extends Component {//俄罗斯方块容器
   render() {
     return (
       <div className="container">

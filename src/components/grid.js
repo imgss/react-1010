@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Grid extends Component {
+class Grid extends Component {//最底下的网格
 
   render() {
     return (
