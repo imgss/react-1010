@@ -30,7 +30,7 @@
 }
 
 .block_container{
-  border: 1px solid #eee;
+  border: 1px solid #f66;
   transform-origin:100% 100%;/*鼠标的位置在3/3的位置*/
   height: 108px;
   width: 110px;
