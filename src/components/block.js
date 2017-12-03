@@ -11,14 +11,6 @@ class Block extends Component {
     document.onmousemove = e => {
       //通知app在拖拽了
       this.props.isDrag(e.clientX, e.clientY);
-      // this.setState({
-      //   style: {
-      //     position: "absolute",
-      //     transform: "scale(2)",
-      //     left: e.clientX,
-      //     top: e.clientY
-      //   }
-      // });
     };
     document.onmouseup = e => {
       if(e.target.className === 'App'){
@@ -29,9 +21,9 @@ class Block extends Component {
       // this.props.isDrag(null);
       this.props.isDrop();
       document.onmousemove = null;
-      this.setState({
-        style: {}
-      });
+      // this.setState({
+      //   style: {}
+      // });
     };
   }
 

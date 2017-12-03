@@ -46,7 +46,13 @@ class App extends Component {
     });
   }
 
-  handleDrop(){
+  handleDrop(i){
+    let srcCells = this.state.srcCells;
+    srcCells[i].style = {}
+    this.setState({
+      srcCells
+    });
+
     this.setState({
       isDragging: false,
       dragBlock: null
