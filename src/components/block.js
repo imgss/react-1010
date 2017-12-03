@@ -9,7 +9,8 @@ class Block extends Component {
   }
 
   handleMouseDown(e) {
-    this.props.isDrag(this.state.shape);
+    console.log(e.target)
+    this.props.isDrag(this.state.shape, this.state.color);
     document.onmousemove = e => {
       //通知app在拖拽了
       this.setState({
@@ -22,9 +23,13 @@ class Block extends Component {
       });
     };
     document.onmouseup = e => {
+      if(e.target.className === 'App'){
+        return
+      }
       //不绑在俄罗斯方块上是因为方块网格的z-index在俄罗斯方块上面，俄罗斯方块监听不到mouseup
       //通知拖拽结束
-      this.props.isDrag(null);
+      // this.props.isDrag(null);
+      this.props.isDrop();
       document.onmousemove = null;
       this.setState({
         style: {}

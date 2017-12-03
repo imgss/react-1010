@@ -14,7 +14,8 @@ class ColorGrid extends Component {
       }
     }
     this.state = {
-      cells
+      cells,
+      canDrop: true
     };
     this.handleMouseOver = this.handleMouseOver.bind(this);
   }
@@ -26,26 +27,60 @@ class ColorGrid extends Component {
         //刷新上一帧，待优化
         for (let i = 0; i < 10; i++) {
           for (let j = 0; j < 10; j++) {
-            cells[i][j] = {
-              color: "transparent",
-              fill: 0
-            };
+            if(!cells[i][j].fill){
+              cells[i][j] = {
+                color: "transparent",
+                fill: 0
+              };
+            }
           }
         }
         //填充阴影
         let startX = Math.max(i - 2, 0)
         let startY = Math.max(j - 2, 0)
-        for (let m = 0; m < i + 3; m++) {
-          for (let n = 0; n < j + 3; n++) {
-            cells[startX + m] && this.props.block[m*5 + n] && (cells[startX + m][startY + n] = {
-              color: "rgba(255, 96, 96, .3)"
-            });
+        for (let m = 0; m < i + 3 && startX + m < 10; m++) {
+          for (let n = 0; n < j + 3 && startY + n < 10; n++) {
+            if (cells[startX + m] && this.props.block[m*5 + n]){
+              // console.log(startX + m, startY + n, currentCell)
+              if(!cells[startX + m][startY + n].fill){
+                cells[startX + m][startY + n] = {
+                  color: "rgba(255, 96, 96, .3)"
+                }
+              } else {
+                console.log(startX + m, startY + n)
+                this.setState({
+                  canDrop: false
+                })
+                return
+              }
+              this.setState({
+                canDrop: true
+              })
+            };
           }
         }
         this.setState({
           cells
         });
       }
+    }
+  }
+
+  fillGrid(color){
+    console.log(this.state.canDrop,color)
+    if(this.state.canDrop){
+      let cells = this.state.cells
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+          if(cells[i][j].color === 'rgba(255, 96, 96, .3)') {
+            cells[i][j] = {
+              color: color,
+              fill: 1
+            }
+          };
+        }
+      }
+      this.setState({cells})
     }
   }
 

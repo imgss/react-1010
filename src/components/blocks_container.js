@@ -5,17 +5,22 @@ class Blocks extends Component {
   constructor(props) {
     super(props);
     this.handleDrag = this.handleDrag.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
   }
 
-  handleDrag(shape) {
-    this.props.onDrag(shape);
+  handleDrag(shape, color) {
+    this.props.onDrag(shape, color);
+  }
+
+  handleDrop(){
+    this.props.onDrop()
   }
 
   render() {
     return (
       <div className="container">
         {Array.from({ length: 3 }).map((i, index) =>
-          <Block key={index} isDrag={this.handleDrag} />
+          <Block key={index} isDrag={this.handleDrag} isDrop={this.handleDrop}/>
         )}
       </div>
     );

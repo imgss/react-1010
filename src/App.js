@@ -9,17 +9,27 @@ class App extends Component {
     super(props);
     this.state = {
       isDragging: false,
-      dragBlock: []
+      dragBlock: [],
+      dragColor: ''
     };
     this.handleDrag = this.handleDrag.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
   }
 
-  handleDrag(block) {
-    console.log(block);
+  handleDrag(block, color) {
     this.setState({
-      isDragging: block ? true : false,
-      dragBlock: block
+      isDragging: true,
+      dragBlock: block,
+      dragColor: color
     });
+  }
+
+  handleDrop(){
+    this.setState({
+      isDragging: false,
+      dragBlock: null
+    });
+    this.colorGrid.fillGrid(this.state.dragColor)
   }
 
   render() {
@@ -29,8 +39,10 @@ class App extends Component {
         <ColorGrid
           isDragging={this.state.isDragging}
           block={this.state.dragBlock}
+          color={this.state.dragColor}
+          ref={colorGrid => this.colorGrid = colorGrid}
         />
-        <Blocks onDrag={this.handleDrag} />
+        <Blocks onDrag={this.handleDrag} onDrop={this.handleDrop}/>
       </div>
     );
   }
