@@ -42,7 +42,9 @@ class App extends Component {
       top: y
     }
     this.setState({
-      srcCells
+      srcCells,
+      isDragging: true,
+      dragBlock: srcCells[i]
     });
   }
 
@@ -50,7 +52,8 @@ class App extends Component {
     let srcCells = this.state.srcCells;
     srcCells[i].style = {}
     this.setState({
-      srcCells
+      srcCells,
+      isDragging: false
     });
 
     this.setState({
@@ -67,7 +70,6 @@ class App extends Component {
         <ColorGrid
           isDragging={this.state.isDragging}
           block={this.state.dragBlock}
-          color={this.state.dragColor}
           ref={colorGrid => this.colorGrid = colorGrid}
         />
         <Blocks onDrag={this.handleDrag} onDrop={this.handleDrop} srcCells={this.state.srcCells}/>
