@@ -17,7 +17,7 @@ class App extends Component {
   handleDrag(block) {
     console.log(block);
     this.setState({
-      isDragging: true,
+      isDragging: block ? true : false,
       dragBlock: block
     });
   }

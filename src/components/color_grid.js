@@ -24,9 +24,18 @@ class ColorGrid extends Component {
       console.log(this.props.block);
       if (this.props.block) {
         let cells = this.state.cells;
+        //刷新上一帧，待优化
+        for (let i = 0; i < 10; i++) {
+          for (let j = 0; j < 10; j++) {
+            cells[i][j] = {
+              color: "transparent",
+              fill: 0
+            };
+          }
+        }
         for (let startX = Math.max(i - 2, 0); startX < i + 3; startX++) {
           for (let startY = Math.max(j - 2, 0); startY < j + 3; startY++) {
-            cells[i][j] = {
+            cells[startX][startY] = {
               color: "rgba(255, 96, 96, .3)"
             };
           }

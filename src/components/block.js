@@ -23,6 +23,7 @@ class Block extends Component {
     };
     document.onmouseup = e => {
       //不绑在俄罗斯方块上是因为方块网格的z-index在俄罗斯方块上面，俄罗斯方块监听不到mouseup
+      //通知拖拽结束
       this.props.isDrag(null);
       document.onmousemove = null;
       this.setState({
