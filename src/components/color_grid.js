@@ -21,7 +21,6 @@ class ColorGrid extends Component {
 
   handleMouseOver(i, j, e) {
     if (this.props.isDragging) {
-      console.log(this.props.block);
       if (this.props.block) {
         let cells = this.state.cells;
         //刷新上一帧，待优化
@@ -33,11 +32,14 @@ class ColorGrid extends Component {
             };
           }
         }
-        for (let startX = Math.max(i - 2, 0); startX < i + 3; startX++) {
-          for (let startY = Math.max(j - 2, 0); startY < j + 3; startY++) {
-            cells[startX][startY] = {
+        //填充阴影
+        let startX = Math.max(i - 2, 0)
+        let startY = Math.max(j - 2, 0)
+        for (let m = 0; m < i + 3; m++) {
+          for (let n = 0; n < j + 3; n++) {
+            cells[startX + m] && this.props.block[m*5 + n] && (cells[startX + m][startY + n] = {
               color: "rgba(255, 96, 96, .3)"
-            };
+            });
           }
         }
         this.setState({
