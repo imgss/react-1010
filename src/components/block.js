@@ -1,26 +1,24 @@
 import React, { Component } from "react";
-import Factory from "../js/Factory";
 class Block extends Component {
   //生成俄罗斯方块
   constructor(props) {
     super(props);
-    this.state = Object.assign({ style: {} }, Factory.createBlock());
     this.handleMouseDown = this.handleMouseDown.bind(this);
   }
 
   handleMouseDown(e) {
     console.log(e.target)
-    this.props.isDrag(this.state.shape, this.state.color);
     document.onmousemove = e => {
       //通知app在拖拽了
-      this.setState({
-        style: {
-          position: "absolute",
-          transform: "scale(2)",
-          left: e.clientX,
-          top: e.clientY
-        }
-      });
+      this.props.isDrag(e.clientX, e.clientY);
+      // this.setState({
+      //   style: {
+      //     position: "absolute",
+      //     transform: "scale(2)",
+      //     left: e.clientX,
+      //     top: e.clientY
+      //   }
+      // });
     };
     document.onmouseup = e => {
       if(e.target.className === 'App'){
@@ -42,13 +40,13 @@ class Block extends Component {
       <div
         className="block_container"
         onMouseDown={this.handleMouseDown}
-        style={this.state.style}
+        style={this.props.block.style}
       >
-        {this.state.shape.map((i, index) =>
+        {this.props.block.shape.map((i, index) =>
           <div
             key={index}
             className="block_cell"
-            style={{ background: i ? this.state.color : "transparent" }}
+            style={{ background: i ? this.props.block.color : "transparent" }}
           />
         )}
       </div>

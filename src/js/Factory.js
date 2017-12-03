@@ -60,7 +60,8 @@ export default {
         this.status = Math.floor(Math.random() * this.maps[this.index].length);
         return {
             shape: this.getCurrentBlock(),
-            color: this.getDragCellColor(this.index)
+            color: this.getDragCellColor(this.index),
+            style: {}
         };
     },
     getCurrentBlock: function(){

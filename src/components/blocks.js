@@ -8,8 +8,8 @@ class Blocks extends Component {
     this.handleDrop = this.handleDrop.bind(this);
   }
 
-  handleDrag(shape, color) {
-    this.props.onDrag(shape, color);
+  handleDrag(i, x, y) {
+    this.props.onDrag(x, y, i);
   }
 
   handleDrop(){
@@ -19,8 +19,8 @@ class Blocks extends Component {
   render() {
     return (
       <div className="container">
-        {Array.from({ length: 3 }).map((i, index) =>
-          <Block key={index} isDrag={this.handleDrag} isDrop={this.handleDrop}/>
+        {this.props.srcCells.map((blk, index) =>
+          <Block key={index} isDrag={this.handleDrag.bind(this, index)} isDrop={this.handleDrop } block={blk}/>
         )}
       </div>
     );
