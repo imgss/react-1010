@@ -3,68 +3,11 @@ import React, { Component } from "react";
 class ColorGrid extends Component {
   constructor(props) {
     super(props);
-    let cells = [];
-    for (let i = 0; i < 10; i++) {
-      cells.push([]);
-      for (let j = 0; j < 10; j++) {
-        cells[i][j] = {
-          color: "transparent",
-          fill: 0
-        };
-      }
-    }
-    this.state = {
-      cells,
-      canDrop: true
-    };
     this.handleMouseOver = this.handleMouseOver.bind(this);
   }
 
   handleMouseOver(i, j, e) {
-    if (this.props.isDragging) {
-      let cells = this.state.cells;
-      let {shape,color} = this.props.block
-      //刷新上一帧，待优化
-      for (let i = 0; i < 10; i++) {
-        for (let j = 0; j < 10; j++) {
-          if (!cells[i][j].fill) {
-            cells[i][j] = {
-              color: "transparent",
-              fill: 0
-            };
-          }
-        }
-      }
-      //填充阴影
-      console.log('start=====================')
-      let startX = i - 2,startY = j - 2;
-      for (let m = 0; m<5; m++) {
-        for (let n = 0; n<5; n++) {
-          let cellX = startX + m, cellY = startY+n; 
-          if(cellX>=0 && cellX<10 && cellY>=0 && cellY<10){
-            console.log(cellX, cellY, shape[m * 5 + n])
-            if (!cells[cellX][cellY].fill) {
-              shape[m * 5 + n] && (cells[cellX][cellY] = {
-                  color: "rgba(255, 96, 96, .3)"
-                })
-              } else {
-                console.log('break',cellX, cellY);
-                // this.setState({
-                //   // canDrop: false
-                // });
-                // return;
-              }
-              this.props.canDrop()
-          }else{
-            console.log('out',cellX, cellY)
-          }
-        }
-      }
-      console.log('===========')
-      this.setState({
-        cells
-      });
-    }
+    this.props.onBlockMove(i,j)
   }
 
   fillGrid(color) {
@@ -88,7 +31,7 @@ class ColorGrid extends Component {
 
   render() {
     let colorCells = [];
-    let cells = this.state.cells;
+    let cells = this.props.targetCells;
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
         colorCells.push(
