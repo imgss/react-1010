@@ -36,29 +36,31 @@ class ColorGrid extends Component {
         }
       }
       //填充阴影
-      let startX = Math.max(i - 2, 0);
-      let startY = Math.max(j - 2, 0);
-      for (let m = 0; m < i + 3 && startX + m < 10; m++) {
-        for (let n = 0; n < j + 3 && startY + n < 10; n++) {
-          if (cells[startX + m] && shape[m * 5 + n]) {
-            console.log(startX + m, startY + n)
-            if (!cells[startX + m][startY + n].fill) {
-              cells[startX + m][startY + n] = {
-                color: "rgba(255, 96, 96, .3)"
-              };
-            } else {
-              console.log(startX + m, startY + n);
-              this.setState({
-                canDrop: false
-              });
-              return;
-            }
-            this.setState({
-              canDrop: true
-            });
+      console.log('start=====================')
+      let startX = i - 2,startY = j - 2;
+      for (let m = 0; m<5; m++) {
+        for (let n = 0; n<5; n++) {
+          let cellX = startX + m, cellY = startY+n; 
+          if(cellX>=0 && cellX<10 && cellY>=0 && cellY<10){
+            console.log(cellX, cellY, shape[m * 5 + n])
+            if (!cells[cellX][cellY].fill) {
+              shape[m * 5 + n] && (cells[cellX][cellY] = {
+                  color: "rgba(255, 96, 96, .3)"
+                })
+              } else {
+                console.log('break',cellX, cellY);
+                // this.setState({
+                //   // canDrop: false
+                // });
+                // return;
+              }
+              this.props.canDrop()
+          }else{
+            console.log('out',cellX, cellY)
           }
         }
       }
+      console.log('===========')
       this.setState({
         cells
       });
@@ -66,6 +68,7 @@ class ColorGrid extends Component {
   }
 
   fillGrid(color) {
+    return;
     console.log(this.state.canDrop, color);
     if (this.state.canDrop) {
       let cells = this.state.cells;
@@ -91,10 +94,10 @@ class ColorGrid extends Component {
         colorCells.push(
           <div
             className="cell"
-            style={{ backgroundColor: cells[i][j].color, zIndex: 10 }}
+            style={{ backgroundColor: cells[i][j].color }}
             onMouseOver={e => this.handleMouseOver(i, j)}
             key={i + "" + j}
-          />
+          ></div>
         );
       }
     }

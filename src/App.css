@@ -54,3 +54,7 @@
   margin: 2px 2px 0 0;
   border-radius: 2px;
 }
+.color .cell{
+  z-index: 10;
+  background-color: transparent;
+}

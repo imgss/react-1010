@@ -31,6 +31,7 @@ class App extends Component {
     };
     this.handleDrag = this.handleDrag.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
+    this.dropBlock = this.dropBlock.bind(this);
   }
 
   handleDrag(x, y, i) {
@@ -63,6 +64,10 @@ class App extends Component {
     this.colorGrid.fillGrid(this.state.dragColor)
   }
 
+  dropBlock(){
+    // console.log('可以放置')
+  }
+
   render() {
     return (
       <div className="App">
@@ -70,6 +75,7 @@ class App extends Component {
         <ColorGrid
           isDragging={this.state.isDragging}
           block={this.state.dragBlock}
+          canDrop = {this.dropBlock}
           ref={colorGrid => this.colorGrid = colorGrid}
         />
         <Blocks onDrag={this.handleDrag} onDrop={this.handleDrop} srcCells={this.state.srcCells}/>
