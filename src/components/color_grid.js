@@ -10,24 +10,6 @@ class ColorGrid extends Component {
     this.props.onBlockMove(i,j)
   }
 
-  fillGrid(color) {
-    return;
-    console.log(this.state.canDrop, color);
-    if (this.state.canDrop) {
-      let cells = this.state.cells;
-      for (let i = 0; i < 10; i++) {
-        for (let j = 0; j < 10; j++) {
-          if (cells[i][j].color === "rgba(255, 96, 96, .3)") {
-            cells[i][j] = {
-              color: color,
-              fill: 1
-            };
-          }
-        }
-      }
-      this.setState({ cells });
-    }
-  }
 
   render() {
     let colorCells = [];
