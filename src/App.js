@@ -16,6 +16,7 @@ class App extends Component {
       for (let j = 0; j < 10; j++) {
         targetCells[i][j] = {
           color: "transparent",
+          className: '',
           fill: 0
         };
       }
@@ -120,6 +121,7 @@ class App extends Component {
         for(let cell of cells[i]){
           cell.fill = 0;
           cell.color = 'transparent';
+          cell.className = 'dispear';
         }
       }
     }
@@ -130,6 +132,7 @@ class App extends Component {
         for(let row of cells){
           row[i].fill = 0;
           row[i].color = 'transparent';
+          row[i].className = 'dispear';
         }
       }
     }

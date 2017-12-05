@@ -17,7 +17,7 @@ class ColorGrid extends Component {
       for (let j = 0; j < 10; j++) {
         colorCells.push(
           <div
-            className="cell"
+            className={(cells[i][j].className || '') + ' cell'}
             style={{ backgroundColor: cells[i][j].color }}
             onMouseOver={e => this.handleMouseOver(i, j)}
             key={i + "" + j}
