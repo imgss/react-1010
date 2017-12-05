@@ -10,7 +10,6 @@ class ColorGrid extends Component {
     this.props.onBlockMove(i,j)
   }
 
-
   render() {
     let colorCells = [];
     let cells = this.props.targetCells;

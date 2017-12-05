@@ -6,6 +6,7 @@
 .App{
   display: flex;
   padding: 5%;
+  justify-content: center;
   box-sizing: border-box;
   width: 100%;
   position: absolute;
@@ -18,23 +19,31 @@
 }
 .color{
   position: absolute;
-
+  top: 0;
+  left: 0;
 }
 .container{
   height: 400px;
   width: 110px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-left: 20px;
 }
 
 .block_container{
-  border: 1px solid #f66;
   transition: transform .1s ease;
   transform-origin:100% 100%;/*鼠标的位置在3/3的位置*/
   height: 108px;
   width: 110px;
+}
+
+.score{
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  top: 10px;
 }
 
 .block_cell{
@@ -46,8 +55,8 @@
 }
 
 .cell{
-  width: 40px;
-  height: 40px;
+  width: 9.2%;
+  height: 9.2%;
   background: #eee;
   display: inline-block;
   padding: 0;
@@ -57,4 +66,14 @@
 .color .cell{
   z-index: 10;
   background-color: transparent;
+}
+@media screen and (max-width:420px){
+  .App{
+    flex-direction: column;
+  }
+  .container{
+    flex-direction: row;
+    width: 100%;
+    height: 110px
+  }
 }

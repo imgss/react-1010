@@ -7,12 +7,17 @@ class Block extends Component {
   }
 
   handleMouseDown(e) {
+    e.preventDefault()
     console.log(e.target)
-    document.onmousemove = e => {
+    let moveHandler = e => {
       //通知app在拖拽了
-      this.props.isDrag(e.clientX, e.clientY);
+      let x = e.clientX
+      let y = e.clientY
+      this.props.isDrag(x, y);
     };
-    document.onmouseup = e => {
+    document.onmousemove = moveHandler
+    document.ontouchmove = moveHandler
+    let upHandler = e => {
       if(e.target.className === 'App'){
         return
       }
@@ -25,6 +30,8 @@ class Block extends Component {
       //   style: {}
       // });
     };
+    document.onmouseup = upHandler
+    document.ontouchend = upHandler
   }
 
   render() {
@@ -32,6 +39,7 @@ class Block extends Component {
       <div
         className="block_container"
         onMouseDown={this.handleMouseDown}
+        onTouchStart={this.handleMouseDown}
         style={this.props.block.style}
       >
         {this.props.block.shape.map((i, index) =>

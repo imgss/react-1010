@@ -23,6 +23,7 @@ class App extends Component {
 
     this.state = {
       srcCells : this.initSrcCells(),
+      score: 0,
       targetCells,
       isDragging: false,
       canDrop: true,
@@ -57,13 +58,24 @@ class App extends Component {
   }
   //放置方块
   handleDrop(i){
-    if(this.state.canDrop){
+    let onGrid = false;//判断方块是不是在栅格上
+    let cells = this.state.targetCells
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        if(cells[i][j].color === SHADOW_COLOR){
+          onGrid = true;
+          break;
+        }
+      }
+    }
+    if(this.state.canDrop && onGrid){
       console.log('可以放')
-      let cells = this.state.targetCells;
+      let score = this.state.score;
       let color = this.state.dragBlock.color;
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
           if (cells[i][j].color === SHADOW_COLOR) {
+            score += 1;
             cells[i][j] = {
               color: color,
               fill: 1
@@ -74,15 +86,16 @@ class App extends Component {
       let srcCells = this.state.srcCells;
       let index = this.state.srcCells.indexOf(this.state.dragBlock)
       srcCells.splice(index, 1)
-      console.log({index},srcCells)
       if(srcCells.length === 0){
         srcCells = this.initSrcCells()
       }
       this.setState({ 
         targetCells: cells,
+        score: score,
         isDragging: false,
         srcCells: srcCells
       });
+      this.clearBlock();
     }else{
       console.log('不可以放')
       let srcCells = this.state.srcCells;
@@ -95,6 +108,36 @@ class App extends Component {
         canDrop: true
       });
     }
+  }
+
+  clearBlock(){//消除方块
+    let cells = this.state.targetCells;
+    let score = this.state.score;
+    //行检测
+    for (let i = 0; i < 10; i++) {
+      if(cells[i].every(cell => cell.fill)){
+        score += 10;
+        for(let cell of cells[i]){
+          cell.fill = 0;
+          cell.color = 'transparent';
+        }
+      }
+    }
+    //列检测
+    for (let i = 0; i < 10; i++) {
+      if(cells.every(row => row[i].fill)){
+        score += 10;
+        for(let row of cells){
+          row[i].fill = 0;
+          row[i].color = 'transparent';
+        }
+      }
+    }
+    this.setState({
+      targetCells: cells,
+      score
+    })
+
   }
 
   clearShadow(){
@@ -144,18 +187,23 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Grid />
-        <ColorGrid
-          isDragging={this.state.isDragging}
-          targetCells={this.state.targetCells}
-          block={this.state.dragBlock}
-          onBlockMove={this.drawShadow} 
-        />
-        <Blocks
-        onDrag={this.handleDrag}
-        onDrop={this.handleDrop}
-        srcCells={this.state.srcCells}/>
+        <div >
+          <div className="score">score: {this.state.score}</div>
+          <div className="App">
+          <div style={{position:'relative'}}>
+            <Grid />
+            <ColorGrid
+              isDragging={this.state.isDragging}
+              targetCells={this.state.targetCells}
+              block={this.state.dragBlock}
+              onBlockMove={this.drawShadow} 
+            />
+          </div>
+          <Blocks
+          onDrag={this.handleDrag}
+          onDrop={this.handleDrop}
+          srcCells={this.state.srcCells}/>
+        </div>
       </div>
     );
   }
