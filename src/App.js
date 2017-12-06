@@ -5,12 +5,34 @@ import Blocks from "./components/blocks";
 import Factory from "./js/Factory";
 import "./App.css";
 
-const  SHADOW_COLOR = "rgba(255, 96, 96, .3)"
+const  SHADOW_COLOR = "rgba(255, 96, 96, .3)"//预览色
 class App extends Component {
   constructor(props) {
     super(props);
-    let targetCells = [];
+    this.state = {
+      srcCells : this.initSrcCells(),
+      score: 0,
+      targetCells : this.initTargetCells(),
+      isDragging: false,
+      canDrop: true,
+      dragBlock: {}
+    };
+    this.handleDrag = this.handleDrag.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
+    this.drawShadow = this.drawShadow.bind(this);
+    this.reStart = this.reStart.bind(this);
+  }
 
+  initSrcCells(){
+    let srcCells = [];
+    for(let m = 0; m < 3; m++){
+      srcCells.push(Factory.createBlock())
+    }
+    return srcCells;
+  }
+
+  initTargetCells(){
+    let targetCells = [];
     for (let i = 0; i < 10; i++) {
       targetCells.push([]);
       for (let j = 0; j < 10; j++) {
@@ -21,26 +43,7 @@ class App extends Component {
         };
       }
     }
-
-    this.state = {
-      srcCells : this.initSrcCells(),
-      score: 0,
-      targetCells,
-      isDragging: false,
-      canDrop: true,
-      dragBlock: {}
-    };
-    this.handleDrag = this.handleDrag.bind(this);
-    this.handleDrop = this.handleDrop.bind(this);
-    this.drawShadow = this.drawShadow.bind(this);
-  }
-
-  initSrcCells(){
-    let srcCells = [];
-    for(let m = 0; m < 3; m++){
-      srcCells.push(Factory.createBlock())
-    }
-    return srcCells
+    return targetCells;
   }
 
   handleDrag(x, y, i) {
@@ -172,15 +175,15 @@ class App extends Component {
                 color: SHADOW_COLOR
               }
             } else {
-              console.log('不可以放',cellX,cellY)
+              // console.log('不可以放',cellX,cellY)
               canDrop = false
             }
           }else{
-            console.log('out',cellX, cellY)
+            // console.log('out',cellX, cellY)
           }
         }
       }
-      console.log('===========')
+      // console.log('===========')
       this.setState({
         targetCells: cells,
         canDrop
@@ -188,10 +191,25 @@ class App extends Component {
     }
   }
 
+  reStart(){
+    console.log('restart')
+    this.setState({
+      srcCells : this.initSrcCells(),
+      score: 0,
+      targetCells : this.initTargetCells(),
+      isDragging: false,
+      canDrop: true,
+      dragBlock: {}
+    })
+  }
+
   render() {
     return (
         <div >
-          <div className="score">score: {this.state.score}</div>
+          <div className="score">
+            score: {this.state.score}
+            <span className="newGame" onClick={this.reStart}>新游戏</span>
+          </div>
           <div className="App">
           <div style={{position:'relative'}}>
             <Grid />

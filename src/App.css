@@ -27,13 +27,14 @@
   width: 110px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-left: 20px;
 }
 
 .block_container{
   transition: transform .1s ease;
   transform-origin:100% 100%;/*鼠标的位置在3/3的位置*/
+  margin-top: 20px;
   height: 108px;
   width: 110px;
 }
@@ -43,6 +44,7 @@
   text-align: center;
   width: 100%;
   position: fixed;
+  z-index: 99999;
   top: 10px;
 }
 
@@ -78,6 +80,18 @@
 .color .cell{
   z-index: 10;
   background-color: transparent;
+}
+.newGame{
+  padding: 3px;
+  font-weight: 600;
+  border-radius: 4px;
+  margin-left: 20px;
+  color: white;
+  background-color: #eda;
+  cursor: pointer;
+}
+.newGame:hover{
+  box-shadow: #ddd 0 3px 5px 3px;
 }
 @media screen and (max-width:420px){
   .App{
