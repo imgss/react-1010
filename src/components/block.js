@@ -18,8 +18,7 @@ class Block extends Component {
     document.onmousemove = moveHandler
     document.ontouchmove = moveHandler
     let upHandler = e => {
-      console.log(e.target.className,e.target.className === 'cell')
-      if(e.target.className !== ' cell'){
+      if(e.target.className !== ' cell'){//被空格坑死
         return
       }
       //不绑在俄罗斯方块上是因为方块网格的z-index在俄罗斯方块上面，俄罗斯方块监听不到mouseup
